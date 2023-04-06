@@ -20,7 +20,10 @@ export class SpeechComponent implements OnInit {
         .map((result: any) => result[0])
         .map((result: any) => result.transcript)
         .join('');
-    
+
+        this.voiceRecognitionService.translate(transcript).subscribe((x:any) => {
+          console.log("translation", x.translatedText)
+        })
     });
 
   }

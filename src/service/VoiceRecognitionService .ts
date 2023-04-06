@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 declare var webkitSpeechRecognition: any;
 
@@ -12,7 +13,7 @@ export class VoiceRecognitionService {
   public text = '';
   tempWords: string = '';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   init() {
 
@@ -43,5 +44,16 @@ export class VoiceRecognitionService {
   wordConcat() {
     this.text = this.text + ' ' + this.tempWords + '.';
     this.tempWords = '';
+  }
+
+  translate(text: string){
+    const headers = { 'content-type': 'application/json'}  
+    const body = {
+      q:text,
+      source:"it",
+      target:"en"
+    }
+    return this.http.post("https://translate.argosopentech.com/translate",body, {headers});
+   
   }
 }
