@@ -23,6 +23,7 @@
     "httpclient": "^0.1.0",
     "rxjs": "~7.8.0",
     "stream-browserify": "^3.0.0",
+    "text-to-speech-js": "^1.1.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },
