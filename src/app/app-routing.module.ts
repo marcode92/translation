@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SpeechComponent } from './speech-component/speech-component.component';
 
 const routes: Routes = [
-  {path:'voice',component: SpeechComponent}
+  {path:'',component: SpeechComponent}
 ];
 
 @NgModule({

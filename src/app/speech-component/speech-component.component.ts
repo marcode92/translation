@@ -9,8 +9,9 @@ import { VoiceRecognitionService } from 'src/service/VoiceRecognitionService ';
 export class SpeechComponent implements OnInit {
   textToShow: string = ''
   tempWords: string = '';
-  voice = new SpeechSynthesisUtterance();
-  voices = window.speechSynthesis.getVoices();
+  robot = new SpeechSynthesisUtterance();
+  voices = speechSynthesis.getVoices()
+  //voices = window.speechSynthesis.getVoices();
   constructor(public readonly voiceRecognitionService: VoiceRecognitionService) {
 
   }
@@ -21,18 +22,22 @@ export class SpeechComponent implements OnInit {
         .map((result: any) => result[0])
         .map((result: any) => result.transcript)
         .join('');
-        speechSynthesis.speak(new SpeechSynthesisUtterance)
-        this.voiceRecognitionService.translate(transcript).subscribe((x:any) => {
-          console.log("translation", x.translatedText)
-          this.voice.text = x.translatedText;
-          console.log(this.voices)
-          this.voice.voice = this.voices[5]
-          speechSynthesis.speak(this.voice)
-        })
-
-
+      this.voiceRecognitionService.translate(transcript).subscribe((x: any) => {
+        this.speak(x);
+      })
     });
 
+  }
+
+  speak(text: any) {
+    this.robot.text = text.translatedText;
+    this.voices = speechSynthesis.getVoices()
+    this.voices.map(x => {
+        if (x.name === "Google UK English Male") {
+          this.robot.voice = x
+        }
+      })
+    speechSynthesis.speak(this.robot)
   }
 
   start() {
